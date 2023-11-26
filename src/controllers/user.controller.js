@@ -1,5 +1,6 @@
 import { User } from "../models/user.model";
 import { ApiError } from "../utils/ApiError";
+import { ApiResponse } from "../utils/ApiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 import { uploadFileToCloudinary } from "../utils/cloudinary";
 
@@ -47,7 +48,17 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   // remove password and refresh token field from response
+  const createdUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
+  if (!createdUser) {
+    throw new ApiError(500, "Something went wrong while registering the user");
+  }
+
   // check for user creation
+  return res
+    .status(201)
+    .json(new ApiResponse(200, createdUser, "User registered successfully"));
   // return response
 });
 
