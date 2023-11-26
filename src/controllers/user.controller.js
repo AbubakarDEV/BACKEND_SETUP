@@ -32,8 +32,20 @@ const registerUser = asyncHandler(async (req, res) => {
   // upload to cloudinary, avatar
   const avatar = await uploadFileToCloudinary(avatarLocalPath);
   const coverImg = await uploadFileToCloudinary(coverImageLocalPath);
+  if (avatar) {
+    throw new ApiError(400, "Avatar is required");
+  }
 
   // create user object - create entry in db
+  const user = await User.create({
+    fullname,
+    avatar: avatar.url,
+    coverImage: coverImg?.url || "",
+    email,
+    password,
+    username: username.toLowerCase(),
+  });
+
   // remove password and refresh token field from response
   // check for user creation
   // return response
