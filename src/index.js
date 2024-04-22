@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import DatabaseConnection from "./db/index.js";
 import { app } from "./app.js";
+import { ENV_VARS } from "./constant.js";
 
 dotenv.config({
   path: "./.env",
@@ -8,8 +9,8 @@ dotenv.config({
 
 DatabaseConnection()
   .then(() => {
-    app.listen(process.env.PORT || 8000, () => {
-      console.log("Server is running at port", process.env.PORT);
+    app.listen(ENV_VARS.PORT || 8000, () => {
+      console.log("Server is running at port", ENV_VARS.PORT);
     });
   })
   .catch((err) => {

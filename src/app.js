@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: ENV_VARS.CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -30,6 +30,7 @@ app.use(cookieParser());
 
 // routes import
 import userRouter from "./routes/user.routes";
+import { ENV_VARS } from "./constant";
 
 // routes declaration
 app.use("/api/v1/users", userRouter);
