@@ -71,9 +71,8 @@ userSchema.methods.generateAccessToken = async function () {
       username: this.username,
     },
     ENV_VARS.ACCESS_TOKEN_SECRET,
-
     {
-      expiresIn: ENV_VARS.ACCESS_TOKEN_EXPIRY,
+      expiresIn: "15m",
     }
   );
 };
@@ -85,7 +84,7 @@ userSchema.methods.generateRefreshToken = async function () {
     },
     ENV_VARS.REFRESH_TOKEN_SECRET,
     {
-      expiresIn: ENV_VARS.REFRESH_TOKEN_EXPIRY,
+      expiresIn: "15d",
     }
   );
 };
