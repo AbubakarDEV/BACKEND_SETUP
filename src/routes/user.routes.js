@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { changeCurrentPassword, getCurrentUser, loginUser, logoutUser, refreshAccessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from "../controllers/user.controller";
+import { changeCurrentPassword, getCurrentUser, getUserChannelProfile, loginUser, logoutUser, refreshAccessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from "../controllers/user.controller";
 import { upload } from "../middlewares/multer.middleware";
 import { verifyJWT } from "../middlewares/auth.middleware";
 
@@ -50,6 +50,11 @@ userRouter.route("/update-avatar").post(
 
 userRouter.route("/update-coverimage").post(
   updateUserCoverImage
+);
+
+
+userRouter.route("/user-channel-profile").post(
+  getUserChannelProfile
 );
 
 export default userRouter;
